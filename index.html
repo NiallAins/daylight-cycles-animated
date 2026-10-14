@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="./style.css" />
 </head>
 
-<body>
+<body
+    ontouchend="isHover = false"
+    ontouchmove="touchOrbit(event)"
+>
 
     <h1>
         <span>
@@ -24,10 +27,11 @@
 
     <div class="earth-container">
         <div
+            id="globe"
             class="globe"
             onmouseover="isHover = true"
-            onmousemove="hoverOrbit(event)"
             onmouseout="isHover = false"
+            onmousemove="hoverOrbit(event)"
         >
             <div id="northLabel" class="day-label north-label"></div>
             <div id="southLabel" class="day-label south-label"></div>

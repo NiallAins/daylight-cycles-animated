@@ -1,4 +1,9 @@
 $angMax: 23.4;
+$breakpoint: 450px;
+
+html {
+    overflow: hidden;
+}
 
 body {
     margin: 0;
@@ -8,6 +13,7 @@ body {
     font-weight: 100;
     font-style: italic;
     background: #222;
+    overflow: hidden;
 }
 
 h1 {
@@ -18,6 +24,7 @@ h1 {
     font-style: normal;
     font-weight: 100;
     letter-spacing: 2px;
+    white-space: nowrap;
 
     i {
         font-size: 14px;
@@ -34,10 +41,22 @@ h1 {
         height: 33px;
         padding: 0 6px;
     }
+
+    @media (max-width: $breakpoint) {
+        font-size: 24px;
+
+        i {
+            vertical-align: 20%;
+        }
+    }
 }
 
 .earth-container {
-    $earthWidth: 380px;
+    --earth-width: 380px;
+
+    @media (max-width: $breakpoint) {
+        --earth-width: 280px;
+    }
 
     @keyframes rotate {
         from {
@@ -45,22 +64,23 @@ h1 {
         }
 
         to {
-            background-position: #{$earthWidth * 2.5} 0;
+            background-position: calc(var(--earth-width) * 2.5) 0;
         }
     }
 
     position: relative;
-    margin: 80px 0 120px calc(50% - #{$earthWidth / 2});
-    height: $earthWidth;
+    margin: 80px 0 120px calc(50% - (var(--earth-width) * 0.5));
+    height: var(--earth-width);
     background: linear-gradient(90deg,
-        #222 #{$earthWidth / 2},
-        #0000 #{$earthWidth / 2}),
+        #222 calc(var(--earth-width) * 0.5),
+        #0000 calc(var(--earth-width) * 0.5)
+    ),
     linear-gradient(#0000 0, #111 0.5%, #111 98.5%, #0000 100%);
     cursor: pointer;
 
     .globe {
         position: absolute;
-        width: $earthWidth;
+        width: var(--earth-width);
         height: 100%;
         border-radius: 100%;
         background: url('https://upload.wikimedia.org/wikipedia/commons/6/69/Peters_projection%2C_white_%26_grey.png') 0 0 / 250% 100%, #008;
@@ -93,7 +113,7 @@ h1 {
         &:after {
             content: '';
             position: absolute;
-            inset: 50% -#{$earthWidth * 0.68} 50% 145%;
+            inset: 50% calc(var(--earth-width) * -0.68) 50% 145%;
             border-bottom: 2px dotted #fff;
             border-top: 2px dotted #383977;
             z-index: 10;
@@ -110,7 +130,7 @@ h1 {
 
     .shadow {
         position: absolute;
-        width: $earthWidth;
+        width: var(--earth-width);
         height: 100%;
         z-index: 20;
         pointer-events: none;
@@ -119,7 +139,7 @@ h1 {
             content: '';
             position: absolute;
             inset: -200px 0;
-            clip-path: circle(#{($earthWidth / 2) + 1px});
+            clip-path: circle(calc((var(--earth-width) * 0.5) + 1px));
             box-shadow: inset -180px 0 20px 0 #000d;
             border-radius: 100%;
         }
@@ -144,8 +164,8 @@ h1 {
                 content: '';
                 position: absolute;
                 bottom: 22px;
-                left: $earthWidth * -0.625;
-                padding: $earthWidth * 0.6;
+                left: calc(var(--earth-width) * -0.625);
+                padding: calc(var(--earth-width) * 0.6);
                 border: 2px dotted #fff8;
                 border-radius: 100%;
                 clip-path: circle(calc(#{2 * $angMax}px * max(var(--ang), -1 * var(--ang))) at calc(50% + (#{2 * $angMax}px * var(--ang))) 100%);
@@ -313,5 +333,12 @@ h1 {
                 font-size: 14px;
             }
         }
+    }
+}
+
+@media (max-width: $breakpoint) {
+    .earth-container,
+    .orbit-container {
+        pointer-events: none;
     }
 }

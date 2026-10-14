@@ -1,3 +1,7 @@
+html {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   color: #fff;
@@ -6,6 +10,7 @@ body {
   font-weight: 100;
   font-style: italic;
   background: #222;
+  overflow: hidden;
 }
 
 h1 {
@@ -16,6 +21,7 @@ h1 {
   font-style: normal;
   font-weight: 100;
   letter-spacing: 2px;
+  white-space: nowrap;
 }
 h1 i {
   font-size: 14px;
@@ -30,25 +36,41 @@ h1 span {
   height: 33px;
   padding: 0 6px;
 }
+@media (max-width: 450px) {
+  h1 {
+    font-size: 24px;
+  }
+  h1 i {
+    vertical-align: 20%;
+  }
+}
 
+.earth-container {
+  --earth-width: 380px;
+}
+@media (max-width: 450px) {
+  .earth-container {
+    --earth-width: 280px;
+  }
+}
 @keyframes rotate {
   from {
     background-position: 0 0;
   }
   to {
-    background-position: 950px 0;
+    background-position: calc(var(--earth-width) * 2.5) 0;
   }
 }
 .earth-container {
   position: relative;
-  margin: 80px 0 120px calc(50% - 190px);
-  height: 380px;
-  background: linear-gradient(90deg, #222 190px, rgba(0, 0, 0, 0) 190px), linear-gradient(rgba(0, 0, 0, 0) 0, #111 0.5%, #111 98.5%, rgba(0, 0, 0, 0) 100%);
+  margin: 80px 0 120px calc(50% - var(--earth-width) * 0.5);
+  height: var(--earth-width);
+  background: linear-gradient(90deg, #222 calc(var(--earth-width) * 0.5), rgba(0, 0, 0, 0) calc(var(--earth-width) * 0.5)), linear-gradient(rgba(0, 0, 0, 0) 0, #111 0.5%, #111 98.5%, rgba(0, 0, 0, 0) 100%);
   cursor: pointer;
 }
 .earth-container .globe {
   position: absolute;
-  width: 380px;
+  width: var(--earth-width);
   height: 100%;
   border-radius: 100%;
   background: url("https://upload.wikimedia.org/wikipedia/commons/6/69/Peters_projection%2C_white_%26_grey.png") 0 0/250% 100%, #008;
@@ -77,7 +99,7 @@ h1 span {
 .earth-container .day-label:after {
   content: "";
   position: absolute;
-  inset: 50% -258.4px 50% 145%;
+  inset: 50% calc(var(--earth-width) * -0.68) 50% 145%;
   border-bottom: 2px dotted #fff;
   border-top: 2px dotted #383977;
   z-index: 10;
@@ -90,7 +112,7 @@ h1 span {
 }
 .earth-container .shadow {
   position: absolute;
-  width: 380px;
+  width: var(--earth-width);
   height: 100%;
   z-index: 20;
   pointer-events: none;
@@ -99,7 +121,7 @@ h1 span {
   content: "";
   position: absolute;
   inset: -200px 0;
-  clip-path: circle(191px);
+  clip-path: circle(calc(var(--earth-width) * 0.5 + 1px));
   box-shadow: inset -180px 0 20px 0 rgba(0, 0, 0, 0.8666666667);
   border-radius: 100%;
 }
@@ -123,8 +145,8 @@ h1 span {
   content: "";
   position: absolute;
   bottom: 22px;
-  left: -237.5px;
-  padding: 228px;
+  left: calc(var(--earth-width) * -0.625);
+  padding: calc(var(--earth-width) * 0.6);
   border: 2px dotted rgba(255, 255, 255, 0.5333333333);
   border-radius: 100%;
   clip-path: circle(calc(46.8px * max(var(--ang), -1 * var(--ang))) at calc(50% + 46.8px * var(--ang)) 100%);
@@ -261,4 +283,11 @@ h1 span {
 .orbit-container .labels div:last-child {
   padding: 4px;
   font-size: 14px;
+}
+
+@media (max-width: 450px) {
+  .earth-container,
+  .orbit-container {
+    pointer-events: none;
+  }
 }

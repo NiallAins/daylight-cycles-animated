@@ -9,18 +9,16 @@ const
 const
     label = document.getElementById('label'),
     northLabel = document.getElementById('northLabel'),
-    southLabel = document.getElementById('southLabel'),
-    angleCss = document.createElement('style');
-document.head.prepend(angleCss);
+    southLabel = document.getElementById('southLabel');
+
+const
+    EL_GLOBE = document.getElementById('globe');
 
 function setAngle(angValue) {
     let ang = easeAng(angValue);
-    angleCss.innerText =
-        `body {
-            --ang: ${ang};
-            --ang-full: ${angValue};
-            --ang-z: ${10 - Math.floor((angValue) * 10)};
-        }`;
+    document.body.style.setProperty('--ang', ang);
+    document.body.style.setProperty('--ang-full', angValue);
+    document.body.style.setProperty('--ang-z', 10 - Math.floor((angValue) * 10));
 
     label.innerHTML =
         Math.abs(ang * MAX_ANG).toFixed(1) +
@@ -40,6 +38,10 @@ function easeAng(angValue) {
 
 function hoverOrbit(e) {
     frame = 125 * (e.offsetX / e.target.offsetWidth);
+}
+
+function touchOrbit(e) {
+    frame = 125 * (e.touches[0].pageX / window.innerWidth);
 }
 
 setInterval(() => {
