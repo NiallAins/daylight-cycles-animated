@@ -87,8 +87,8 @@ h1 {
         animation: rotate 40s infinite linear;
         transform: rotate(calc(#{-$angMax}deg * var(--ang)));
 
-        &:before,
-        &:after {
+        &::before,
+        &::after {
             content: '';
             position: absolute;
             inset: 100% 50% -80px;
@@ -96,7 +96,7 @@ h1 {
             border-left: 2px solid #fff8;
         }
 
-        &:after {
+        &::after {
             inset: -40px 50% 100%;
         }
     }
@@ -110,7 +110,7 @@ h1 {
         color: #fff;
         pointer-events: none;
 
-        &:after {
+        &::after {
             content: '';
             position: absolute;
             inset: 50% calc(var(--earth-width) * -0.68) 50% 145%;
@@ -126,6 +126,14 @@ h1 {
         &.south-label {
             bottom: 10%;
         }
+
+        @media (max-width: $breakpoint) {
+            left: -16px;
+
+            &::after {
+                inset: 50% calc(var(--earth-width) * -0.68) 50% 130%;
+            }
+        }
     }
 
     .shadow {
@@ -135,16 +143,16 @@ h1 {
         z-index: 20;
         pointer-events: none;
 
-        &:before {
+        &::before {
             content: '';
             position: absolute;
             inset: -200px 0;
             clip-path: circle(calc((var(--earth-width) * 0.5) + 1px));
-            box-shadow: inset -180px 0 20px 0 #000d;
+            box-shadow: inset calc(var(--earth-width) * -0.47) 0 20px 0 #000d;
             border-radius: 100%;
         }
 
-        &:after {
+        &::after {
             content: '';
             position: absolute;
             inset: 100% 50% -80px;
@@ -160,7 +168,7 @@ h1 {
             left: calc(50% + 8px);
             color: #fff;
 
-            &:before {
+            &::before {
                 content: '';
                 position: absolute;
                 bottom: 22px;
@@ -169,6 +177,10 @@ h1 {
                 border: 2px dotted #fff8;
                 border-radius: 100%;
                 clip-path: circle(calc(#{2 * $angMax}px * max(var(--ang), -1 * var(--ang))) at calc(50% + (#{2 * $angMax}px * var(--ang))) 100%);
+                
+                @media (max-width: $breakpoint) {
+                    clip-path: circle(calc(#{1.5 * $angMax}px * max(var(--ang), -1 * var(--ang))) at calc(50% + (#{1.5 * $angMax}px * var(--ang))) 100%);
+                }
             }
         }
     }
@@ -181,8 +193,8 @@ h1 {
     max-width: calc(100vw - 80px);
     cursor: pointer;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         content: '';
         position: absolute;
         inset: 37px 0 auto 0;
@@ -191,12 +203,12 @@ h1 {
         border: 2px dashed #fff8;
     }
 
-    &:before {
+    &::before {
         border-bottom-width: 0;
         z-index: -10;
     }
 
-    &:after {
+    &::after {
         border-top-width: 0;
         z-index: 5;
     }
@@ -277,7 +289,7 @@ h1 {
         animation-play-state: paused;
         pointer-events: none;
 
-        &:before {
+        &::before {
             content: '';
             position: absolute;
             inset: -15px 50%;
@@ -287,7 +299,7 @@ h1 {
             z-index: 20;
         }
 
-        &:after {
+        &::after {
             content: '';
             position: absolute;
             inset: 0;
